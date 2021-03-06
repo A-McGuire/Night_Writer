@@ -1,17 +1,16 @@
-require './lib/output'
 
-class Input
-  attr_reader :char_count,
-              :converted
 
-  def initialize(file, new_file)
-    @new_file = new_file
-    @char_count = 0
-    @converted = ''
-    @line1 = ''
-    @line2 = ''
-    @line3 = ''
-    @hash = {
+@line1 = ''
+@line2 = ''
+@line3 = ''
+
+def converter(char)
+  @line1 += @hash[char][0]
+  @line2 += @hash[char][1]
+  @line3 += @hash[char][2]
+end
+
+@hash = {
   "a" => ["0.", "..", ".."],
   "b" => ["0.", "0.", ".."],
   "c" => ["00", "..", ".."],
@@ -40,24 +39,9 @@ class Input
   "z" => ["0.", ".0", "00"],
   " " => ["..", "..", ".."]
        }
-  end
-
-  def read(file)
-    File.open(file).each_char do |char|
-      @char_count += char.length
-      converter(char)
-    end
-  Output.new(@new_file, @converted)
-  end
-    
-  def print_to_terminal
-    p "Created '#{@new_file}' containing #{@char_count} characters"
-  end
-
-  def converter(char)
-    @line1 += @hash[char][0]
-    @line2 += @hash[char][1]
-    @line3 += @hash[char][2]
-    @converted = "#{@line1}\n#{@line2}\n#{@line3}"
-  end
-end
+# @hash = {
+#   "a" => ["", "", ".."],
+#   "b" => ["b1", "b2", "b3"],
+#   "c" => ["c1", "c2", "c3"]
+#        }
+       
