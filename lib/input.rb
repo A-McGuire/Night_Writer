@@ -2,21 +2,10 @@ require_relative './output'
 require_relative './converter'
 
 class Input
-  attr_reader :char_count,
-              :data,
-              :new_file
+  attr_reader :data
 
-  def initialize(file) #instantiate w/ user input 
-    @new_file = new_file
-    @char_count = 0
-    @data = []
-  end
-
-  def read(file) #opends file, counts the chars, puts chars in array
-    File.open(file).each_char do |char|
-      @char_count += char.length #move to separate method?
-      @data << char
-    end
+  def initialize(file)
+    @data = file.chars
   end
 
   def translate_chunks #takes in data that has been chunked into specific sizes
@@ -31,5 +20,9 @@ class Input
       chunked << chunk.join #adds chunks to new array in str format
     end
     chunked #returns array of strings, each ele is a chunk
+  end
+
+  def char_count
+    @data.count
   end
 end
