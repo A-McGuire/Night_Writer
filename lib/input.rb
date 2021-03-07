@@ -1,5 +1,5 @@
-require './lib/output'
-require './lib/converter'
+require_relative './output'
+require_relative './converter'
 
 class Input
   attr_reader :char_count,

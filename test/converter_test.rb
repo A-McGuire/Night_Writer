@@ -1,5 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
+# require 'minitest/autorun'
+# require 'minitest/pride'
 require './lib/converter'
 
 class ConverterTest < MiniTest::Test
