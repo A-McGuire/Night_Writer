@@ -24,18 +24,4 @@ class InputTest < MiniTest::Test
     input.stubs(:data).returns(['a', 'b', 'c', 'd'])
     assert_equal ['ab', 'cd'], input.chunk_data(2)
   end
-  
-  def test_wrap_text
-    skip
-    file = './sample_txt/over_40.txt'
-    file2 = './sample_txt/one_word.txt'
-    input = Input.new(file)
-    input2 = Input.new(file2)
-    input.read(file)
-    input2.read(file2)
-    assert_equal 50, input.char_count
-    assert_equal 5, input2.char_count
-    assert_equal true, input.wrap_text?
-    assert_equal false, input2.wrap_text?
-  end
 end
