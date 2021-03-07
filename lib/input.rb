@@ -14,17 +14,13 @@ class Input
 
   def read(file) #opends file, counts the chars, puts chars in array
     File.open(file).each_char do |char|
-      @char_count += char.length
+      @char_count += char.length #move to separate method?
       @data << char
     end
   end
 
-  def translate
-      braille = translate_chunks(chunk_data(40))
-  end
-
-  def translate_chunks(chunked_data) #takes in data that has been chunked into specific sizes
-    result = chunked_data.flat_map do |chunk| #each chunk converted to braille
+  def translate_chunks #takes in data that has been chunked into specific sizes
+    chunk_data(40).flat_map do |chunk| #each chunk converted to braille
       Converter.convert(chunk)
     end
   end
@@ -36,9 +32,4 @@ class Input
     end
     chunked #returns array of strings, each ele is a chunk
   end
-
-  # def wrap_text?
-  #   return true if char_count > 40
-  #   false
-  # end
 end
