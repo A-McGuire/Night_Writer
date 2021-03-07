@@ -3,7 +3,8 @@ require_relative './converter'
 
 class Input
   attr_reader :char_count,
-              :data
+              :data,
+              :new_file
 
   def initialize(file, new_file) #instantiate w/ user input 
     @new_file = new_file
@@ -19,17 +20,17 @@ class Input
   end
 
   def translate
-    return to_braille(chunk_data(40)) if wrap_text?
-    braille = Converter.convert(@data.join)
-    Output.new(@new_file, braille)
+    if wrap_text?
+      braille = to_braille(chunk_data(40))
+    else
+      braille = Converter.convert(@data.join)
+    end
   end
 
   def to_braille(chunked_data) #takes in data that has been chunked into specific sizes
-    result = []
-    chunked_data.each do |chunk| #each chunk converted to braille
-      result += Converter.convert(chunk)
+    result = chunked_data.flat_map do |chunk| #each chunk converted to braille
+      Converter.convert(chunk)
     end
-    Output.new(@new_file, result)
   end
 
   def chunk_data(batch_size) #tell the method the size of the chunks you need
