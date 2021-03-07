@@ -21,13 +21,13 @@ class Input
 
   def translate
     if wrap_text?
-      braille = to_braille(chunk_data(40))
+      braille = translate_chunks(chunk_data(40))
     else
       braille = Converter.convert(@data.join)
     end
   end
 
-  def to_braille(chunked_data) #takes in data that has been chunked into specific sizes
+  def translate_chunks(chunked_data) #takes in data that has been chunked into specific sizes
     result = chunked_data.flat_map do |chunk| #each chunk converted to braille
       Converter.convert(chunk)
     end
