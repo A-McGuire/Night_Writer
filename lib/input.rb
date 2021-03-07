@@ -45,8 +45,4 @@ class Input
     return true if char_count > 40
     false
   end
-    
-  def print_to_terminal
-    p "Created '#{@new_file}' containing #{@char_count} characters"
-  end
 end
