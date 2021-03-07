@@ -24,11 +24,14 @@ class Input
     Output.new(@new_file, braille)
   end
 
-  def wrap_text?
-    return true if char_count > 40
-    false
+  def to_braille(chunked_data) #takes in data that has been chunked into specific sizes
+    result = []
+    chunked_data.each do |chunk| #each chunk converted to braille
+      result += Converter.convert(chunk)
+    end
+    Output.new(@new_file, result)
   end
-  
+
   def chunk_data(batch_size) #tell the method the size of the chunks you need
     chunked = []
     data.each_slice(batch_size) do |chunk| #groups eles in set batch sizes
@@ -37,12 +40,9 @@ class Input
     chunked #returns array of strings, each ele is a chunk
   end
 
-  def to_braille(chunked_data) #takes in data that has been chunked into specific sizes
-    result = []
-    chunked_data.each do |chunk| #each chunk converted to braille
-      result += Converter.convert(chunk)
-    end
-    Output.new(@new_file, result)
+  def wrap_text?
+    return true if char_count > 40
+    false
   end
     
   def print_to_terminal
