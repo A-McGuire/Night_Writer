@@ -6,7 +6,7 @@ class Input
               :data,
               :new_file
 
-  def initialize(file, new_file) #instantiate w/ user input 
+  def initialize(file) #instantiate w/ user input 
     @new_file = new_file
     @char_count = 0
     @data = []
@@ -20,11 +20,7 @@ class Input
   end
 
   def translate
-    if wrap_text?
       braille = translate_chunks(chunk_data(40))
-    else
-      braille = Converter.convert(@data.join)
-    end
   end
 
   def translate_chunks(chunked_data) #takes in data that has been chunked into specific sizes
@@ -41,8 +37,8 @@ class Input
     chunked #returns array of strings, each ele is a chunk
   end
 
-  def wrap_text?
-    return true if char_count > 40
-    false
-  end
+  # def wrap_text?
+  #   return true if char_count > 40
+  #   false
+  # end
 end
