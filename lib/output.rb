@@ -5,8 +5,10 @@ class Output
   end
 
   def write(new_file, converted)
-    File.open(new_file, "w") do |f|   
-      f.write(converted)   
+    File.open(new_file, "w") do |f|
+      converted.each do |line|
+        f.write(line + "\n") 
+      end
     end
   end
 end
