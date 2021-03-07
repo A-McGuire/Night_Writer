@@ -3,7 +3,8 @@ require_relative './converter'
 
 class Input
   attr_reader :char_count,
-              :data
+              :data,
+              :new_file
 
   def initialize(file, new_file) #instantiate w/ user input 
     @new_file = new_file
@@ -24,7 +25,6 @@ class Input
     else
       braille = Converter.convert(@data.join)
     end
-    Output.new(@new_file, braille)
   end
 
   def to_braille(chunked_data) #takes in data that has been chunked into specific sizes
