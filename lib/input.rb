@@ -16,13 +16,13 @@ class Input
       @char_count += char.length
       @data << char
     end
-    return to_braille(chunk_data(40)) if @char_count > 40 #if data is > 40chars breck it into chucks of 40 chars 
+    return to_braille(chunk_data(40)) if wrap_text? #if data is > 40chars breck it into chucks of 40 chars 
     result = Converter.convert(@data.join) #if data is < 40chars convert it to braille
     Output.new(@new_file, result) # instantiate output with braille and new_file name from user
   end
 
   def wrap_text?
-    true if char_count > 40
+    return true if char_count > 40
     false
   end
   
