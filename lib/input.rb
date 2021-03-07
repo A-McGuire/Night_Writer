@@ -19,17 +19,18 @@ class Input
   end
 
   def translate
-    return to_braille(chunk_data(40)) if wrap_text?
-    braille = Converter.convert(@data.join)
+    if wrap_text?
+      braille = to_braille(chunk_data(40))
+    else
+      braille = Converter.convert(@data.join)
+    end
     Output.new(@new_file, braille)
   end
 
   def to_braille(chunked_data) #takes in data that has been chunked into specific sizes
-    result = []
-    chunked_data.each do |chunk| #each chunk converted to braille
-      result += Converter.convert(chunk)
+    result = chunked_data.flat_map do |chunk| #each chunk converted to braille
+      Converter.convert(chunk)
     end
-    Output.new(@new_file, result)
   end
 
   def chunk_data(batch_size) #tell the method the size of the chunks you need
