@@ -6,7 +6,7 @@ class Input
               :data,
               :new_file
 
-  def initialize(file, new_file) #instantiate w/ user input 
+  def initialize(file) #instantiate w/ user input 
     @new_file = new_file
     @char_count = 0
     @data = []
@@ -14,21 +14,13 @@ class Input
 
   def read(file) #opends file, counts the chars, puts chars in array
     File.open(file).each_char do |char|
-      @char_count += char.length
+      @char_count += char.length #move to separate method?
       @data << char
     end
   end
 
-  def translate
-    if wrap_text?
-      braille = translate_chunks(chunk_data(40))
-    else
-      braille = Converter.convert(@data.join)
-    end
-  end
-
-  def translate_chunks(chunked_data) #takes in data that has been chunked into specific sizes
-    result = chunked_data.flat_map do |chunk| #each chunk converted to braille
+  def translate_chunks #takes in data that has been chunked into specific sizes
+    chunk_data(40).flat_map do |chunk| #each chunk converted to braille
       Converter.convert(chunk)
     end
   end
@@ -39,14 +31,5 @@ class Input
       chunked << chunk.join #adds chunks to new array in str format
     end
     chunked #returns array of strings, each ele is a chunk
-  end
-
-  def wrap_text?
-    return true if char_count > 40
-    false
-  end
-    
-  def print_to_terminal
-    p "Created '#{@new_file}' containing #{@char_count} characters"
   end
 end
