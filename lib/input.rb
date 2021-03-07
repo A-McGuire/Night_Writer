@@ -1,4 +1,3 @@
-require_relative './output'
 require_relative './converter'
 
 class Input
@@ -8,7 +7,7 @@ class Input
     @data = file.chars
   end
 
-  def translate_chunks #takes in data that has been chunked into specific sizes
+  def to_braille #takes in data that has been chunked into specific sizes
     chunk_data(40).flat_map do |chunk| #each chunk converted to braille
       Converter.convert(chunk)
     end
