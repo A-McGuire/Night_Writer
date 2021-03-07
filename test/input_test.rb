@@ -26,4 +26,12 @@ class InputTest < MiniTest::Test
     assert_equal 50, input.char_count
     assert_equal true, input.wrap_text?
   end
+  
+  def test_read_file
+    file = './sample_txt/over_40.txt'
+    input = Input.new(file, "new_file.txt")
+    input.read(file)
+    assert_equal 50, input.char_count
+    assert_equal 50, input.data.size
+  end
 end
