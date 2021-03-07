@@ -19,10 +19,15 @@ class InputTest < MiniTest::Test
   
   def test_wrap_text
     file = './sample_txt/over_40.txt'
+    file2 = './sample_txt/one_word.txt'
     input = Input.new(file, "new_file.txt")
+    input2 = Input.new(file2, "new_file.txt")
     input.read(file)
+    input2.read(file2)
     assert_equal 50, input.char_count
+    assert_equal 5, input2.char_count
     assert_equal true, input.wrap_text?
+    assert_equal false, input2.wrap_text?
   end
   
   def test_read_file
