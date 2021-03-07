@@ -13,9 +13,9 @@ class Input
     end
   end
 
-  def chunk_data(batch_size) #tell the method the size of the chunks you need
+  def chunk_data(chunk_size) #tell the method the size of the chunks you need
     chunked = []
-    data.each_slice(batch_size) do |chunk| #groups eles in set batch sizes
+    data.each_slice(chunk_size) do |chunk| #groups eles in set batch sizes
       chunked << chunk.join #adds chunks to new array in str format
     end
     chunked #returns array of strings, each ele is a chunk
