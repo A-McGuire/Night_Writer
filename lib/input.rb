@@ -20,6 +20,11 @@ class Input
     result = Converter.convert(@data.join) #if data is < 40chars convert it to braille
     Output.new(@new_file, result) # instantiate output with braille and new_file name from user
   end
+
+  def wrap_text?
+    true if char_count > 40
+    false
+  end
   
   def chunk_data(batch_size) #tell the method the size of the chunks you need
     chunked = []
@@ -33,7 +38,6 @@ class Input
     result = []
     chunked_data.each do |chunk| #each chunk converted to braille
       result += Converter.convert(chunk)
-      require 'pry'; binding.pry
     end
     Output.new(@new_file, result)
   end
