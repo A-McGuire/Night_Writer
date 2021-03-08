@@ -27,21 +27,30 @@ class Reader
     test = (1..format.length).group_by do |i|
       i % 3
     end
-    test[1].each do |key, value|
-      format[key].each_slice(2) do |letter|
+    test.values[0].each do |value|
+      format[value - 1].each_slice(2) do |letter|
         line1 << letter.join
       end
     end
-    
-    format[0].each_slice(2) do |letter|
-      line1 << letter.join
+    test.values[1].each do |value|
+      format[value - 1].each_slice(2) do |letter|
+        line2 << letter.join
+      end
     end
-    format[1].each_slice(2) do |letter|
-      line2 << letter.join
+    test.values[2].each do |value|
+      format[value - 1].each_slice(2) do |letter|
+        line3 << letter.join
+      end
     end
-    format[2].each_slice(2) do |letter|
-      line3 << letter.join
-    end
+    # format[0].each_slice(2) do |letter|
+    #   line1 << letter.join
+    # end
+    # format[1].each_slice(2) do |letter|
+    #   line2 << letter.join
+    # end
+    # format[2].each_slice(2) do |letter|
+    #   line3 << letter.join
+    # end
     
     converter_format = []
     line1.zip(line2, line3) do |l1, l2, l3|
