@@ -1,5 +1,7 @@
-require './lib/reader'
+require './lib/Sanitize_braille'
 
-reader = Reader.new(File.readlines(ARGV[0]))
-p "Created #{ARGV[1]} containing #{reader.char_count} characters."
-File.open(ARGV[1], 'w') { |file| file.write(reader.to_english) }
+Sanitize_braille = SanitizeBraille.new(File.readlines(ARGV[0]))
+
+File.open(ARGV[1], 'w') { |file| file.write(Sanitize_braille.to_english) }
+
+p "Created #{ARGV[1]} containing #{Sanitize_braille.char_count} characters."
