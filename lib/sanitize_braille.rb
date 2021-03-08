@@ -61,8 +61,9 @@ class SanitizeBraille
   end
   
   def char_count
-    file.sum do |ele|
+    sum = file.sum do |ele|
       ele.chomp.length
     end
+    sum / 6
   end
 end

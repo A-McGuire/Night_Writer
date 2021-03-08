@@ -14,7 +14,7 @@ class SanitizeBrailleTest < MiniTest::Test
   def test_char_count
     sanitize_braille = SanitizeBraille.new(["00\n", "00\n", ".."])
 
-    assert_equal 6, sanitize_braille.char_count
+    assert_equal 1, sanitize_braille.char_count
   end
 
   def test_format_one_letter
