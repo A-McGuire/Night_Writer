@@ -4,7 +4,7 @@ class SanitizeEnglish
   attr_reader :data
 
   def initialize(file)
-    @data = file.gsub("\n", "").chars
+    @data = file.gsub("\n", "").chars #removes pesky newlines
   end
   
   def to_braille #takes in data that has been chunked into specific sizes
