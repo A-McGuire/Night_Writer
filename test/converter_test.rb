@@ -31,12 +31,11 @@ class ConverterTest < MiniTest::Test
   end
 
   def test_it_converts_one_line_to_english_char
-    skip
     pizza_go = [["00", "0.", "0."], [".0", "0.", ".."], 
                 ["0.", ".0", "00"], ["0.", ".0", "00"], 
                 ["0.", "..", ".."], ["..", "..", ".."], 
                 ["00", "00", ".."], ["0.", ".0", "0."]]
                 
-    assert_equal "pizza go", Converter.convert_to_english(array)
+    assert_equal "pizza go", Converter.convert_to_english(pizza_go)
   end
 end
