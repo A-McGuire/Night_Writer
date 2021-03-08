@@ -5,6 +5,15 @@ class Reader
   def initialize(file)
     @file = file
   end
+
+  def to_english
+    english = Converter.convert_to_english(to_converter_format)
+    if english.size > 80 
+      english.scan(/.{1,80} /).join("\n")
+    else 
+      english
+    end
+  end
   
   def to_converter_format
     line1 = []
@@ -28,15 +37,6 @@ class Reader
       end
     end
     condense_to_letters(line1, line2, line3)
-  end
-
-  def to_english
-    english = Converter.convert_to_english(to_converter_format)
-    if english.size > 80 
-      english.scan(/.{1,80} /).join("\n")
-    else 
-      english
-    end
   end
   
   def format
