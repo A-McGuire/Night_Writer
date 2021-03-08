@@ -24,14 +24,23 @@ class Reader
     line2 = []
     line3 = []
 
-    format[0].each_slice(2) do |letter|
-      line1 << letter.join
+    test = (1..format.length).group_by do |i|
+      i % 3
     end
-    format[1].each_slice(2) do |letter|
-      line2 << letter.join
+    test.values[0].each do |value|
+      format[value - 1].each_slice(2) do |letter|
+        line1 << letter.join
+      end
     end
-    format[2].each_slice(2) do |letter|
-      line3 << letter.join
+    test.values[1].each do |value|
+      format[value - 1].each_slice(2) do |letter|
+        line2 << letter.join
+      end
+    end
+    test.values[2].each do |value|
+      format[value - 1].each_slice(2) do |letter|
+        line3 << letter.join
+      end
     end
 
     converter_format = []
