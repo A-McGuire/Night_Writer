@@ -24,4 +24,19 @@ class ConverterTest < MiniTest::Test
     array = [["00", "00", ".."]]
     assert_equal "g", Converter.convert_to_english(array)
   end
+
+  def test_it_converts_one_word_to_english_char
+    array = [["00", "00", ".."], ["0.", ".0", "0."]]
+    assert_equal "go", Converter.convert_to_english(array)
+  end
+
+  def test_it_converts_one_line_to_english_char
+    skip
+    pizza_go = [["00", "0.", "0."], [".0", "0.", ".."], 
+                ["0.", ".0", "00"], ["0.", ".0", "00"], 
+                ["0.", "..", ".."], ["..", "..", ".."], 
+                ["00", "00", ".."], ["0.", ".0", "0."]]
+                
+    assert_equal "pizza go", Converter.convert_to_english(array)
+  end
 end
