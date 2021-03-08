@@ -1,5 +1,5 @@
 class Converter
-  def self.convert(string)
+  def self.convert_to_braille(string)
     line1 = ''
     line2 = ''
     line3 = ''

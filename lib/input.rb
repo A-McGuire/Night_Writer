@@ -6,10 +6,10 @@ class Input
   def initialize(file)
     @data = file.chars
   end
-
+  
   def to_braille #takes in data that has been chunked into specific sizes
     chunk_data(40).flat_map do |chunk| #each chunk converted to braille
-      Converter.convert(chunk)
+      Converter.convert_to_braille(chunk)
     end
   end
 

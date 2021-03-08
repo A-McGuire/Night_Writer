@@ -9,14 +9,14 @@ class ConverterTest < MiniTest::Test
   end
 
   def test_it_converts_one_letter
-    assert_equal ["00", "00", ".."], Converter.convert("g")
+    assert_equal ["00", "00", ".."], Converter.convert_to_braille("g")
   end
   
   def test_it_converts_one_word
-    assert_equal ["00.00.0.0.", "0.0..0.0..", "0...0000.."], Converter.convert("pizza")
+    assert_equal ["00.00.0.0.", "0.0..0.0..", "0...0000.."], Converter.convert_to_braille("pizza")
   end
   
   def test_it_converts_two_words
-    assert_equal ["0.0...0.0.", "......0.0.", ".........."], Converter.convert("aa bb")
+    assert_equal ["0.0...0.0.", "......0.0.", ".........."], Converter.convert_to_braille("aa bb")
   end
 end
