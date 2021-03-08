@@ -51,6 +51,7 @@ class Reader
   end
 
   def to_english
-    Converter.convert_to_english(to_converter_format)
+    english = Converter.convert_to_english(to_converter_format)
+    english.scan(/.{1,80} /).join("\n")
   end
 end
