@@ -21,6 +21,7 @@ class ConverterTest < MiniTest::Test
   end
 
   def test_it_converts_one_letter_to_english_char
-    assert_equal "g", ["00", "00", ".."]
+    array = [["00", "00", ".."]]
+    assert_equal "g", Converter.convert_to_english(array)
   end
 end
