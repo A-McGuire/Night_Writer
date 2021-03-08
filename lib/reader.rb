@@ -52,6 +52,10 @@ class Reader
 
   def to_english
     english = Converter.convert_to_english(to_converter_format)
-    english.scan(/.{1,80} /).join("\n")
+    if english.size > 80 
+      english.scan(/.{1,80} /).join("\n")
+    else 
+      english
+    end
   end
 end
