@@ -4,7 +4,7 @@ class Input
   attr_reader :data
 
   def initialize(file)
-    @data = file.chars
+    @data = file.gsub("\n", "").chars
   end
   
   def to_braille #takes in data that has been chunked into specific sizes
