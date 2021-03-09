@@ -25,3 +25,4 @@ class SanitizeEnglish
     @data.count
   end
 end
+

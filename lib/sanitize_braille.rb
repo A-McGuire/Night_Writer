@@ -7,7 +7,6 @@ class SanitizeBraille
   end
 
   def to_english
-    require 'pry'; binding.pry
     english = Converter.convert_to_english(to_converter_format)
     if english.size > 80 
       english.scan(/.{1,80} /).join("\n") #adds newline every 80 characters
@@ -23,24 +22,24 @@ class SanitizeBraille
     create_groups_by_3 # creates hash that associates lines that 
                        # share the same index of a braille character
     @groups.values[0].each do |value| #groups.values[0] == 1, 4 which represent line numbers
-      format[value - 1].each_slice(2) do |letter| #value - 1 to account for index 0
+      breakdown[value - 1].each_slice(2) do |letter| #value - 1 to account for index 0
         line1 << letter.join #creating an array that contains all 'top' character sections, 
       end                    # with each char section as an element
     end
     @groups.values[1].each do |value|
-      format[value - 1].each_slice(2) do |letter|
+      breakdown[value - 1].each_slice(2) do |letter|
         line2 << letter.join
       end
     end
     @groups.values[2].each do |value|
-      format[value - 1].each_slice(2) do |letter|
+      breakdown[value - 1].each_slice(2) do |letter|
         line3 << letter.join
       end
     end
     condense_to_letters(line1, line2, line3) # creates a nested array where each element is a horizontal braille letter 
   end
 
-  def format #removes newlines and formats data into an array of inidividual chars/dots
+  def breakdown #removes newlines and formats data into an array of inidividual chars/dots
     file.map do |ele|
       ele.chomp!
       ele.chars
@@ -48,7 +47,7 @@ class SanitizeBraille
   end
   
   def create_groups_by_3 # creates hash that associates lines that share the same index of a braille character
-    @groups = (1..format.length).group_by do |i|
+    @groups = (1..breakdown.length).group_by do |i|
       i % 3
     end
   end

@@ -17,16 +17,16 @@ class SanitizeBrailleTest < MiniTest::Test
     assert_equal 1, sanitize_braille.char_count
   end
 
-  def test_format_one_letter
+  def test_breakdown_one_letter
     sanitize_braille = SanitizeBraille.new(["00\n", "00\n", ".."])
     
-    assert_equal [["0", "0"], ["0", "0"], [".", "."]], sanitize_braille.format
+    assert_equal [["0", "0"], ["0", "0"], [".", "."]], sanitize_braille.breakdown
   end
   
-  def test_to_converter_format_one_letter
+  def test_to_converter_breakdown_one_letter
     sanitize_braille = SanitizeBraille.new(["00\n", "00\n", ".."])
 
-    sanitize_braille.format
+    sanitize_braille.breakdown
 
     assert_equal [["00", "00", ".."]], sanitize_braille.to_converter_format
   end
@@ -34,7 +34,7 @@ class SanitizeBrailleTest < MiniTest::Test
   def test_to_english_one_letter
     sanitize_braille = SanitizeBraille.new(["00\n", "00\n", ".."])
 
-    sanitize_braille.format
+    sanitize_braille.breakdown
 
     assert_equal "g",  sanitize_braille.to_english
   end
@@ -51,7 +51,7 @@ class SanitizeBrailleTest < MiniTest::Test
     file = ["0.\n", "..\n", "..\n", "0.\n", "..\n", ".."]
     sanitize_braille = SanitizeBraille.new(file)
 
-    sanitize_braille.format
+    sanitize_braille.breakdown
     sanitize_braille.create_groups_by_3
     line1 = ["0.", "0."]
     line2 = ["..", ".."]
