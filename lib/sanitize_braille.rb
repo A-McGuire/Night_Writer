@@ -9,7 +9,7 @@ class SanitizeBraille
   def to_english
     english = Converter.convert_to_english(to_converter_format)
     if english.size > 80 
-      english.scan(/.{1,80} /).join("\n") #adds newline every 80 characters
+      english.scan(/.{1,80} /).join("\n")
     else 
       english
     end
@@ -19,12 +19,12 @@ class SanitizeBraille
     line1 = []
     line2 = []
     line3 = []
-    create_groups_by_3 # creates hash that associates lines that 
-                       # share the same index of a braille character
-    @index_hash.values[0].each do |value| #index_hash.values[0] == 0, 3 which represent line numbers
+    create_groups_by_3
+    
+    @index_hash.values[0].each do |value|
       breakdown[value].each_slice(2) do |letter| 
-        line1 << letter.join #creating an array that contains all 'top' character sections, 
-      end                    # with each char section as an element
+        line1 << letter.join
+      end
     end
     @index_hash.values[1].each do |value|
       breakdown[value].each_slice(2) do |letter|
@@ -36,17 +36,10 @@ class SanitizeBraille
         line3 << letter.join
       end
     end
-    condense_to_letters(line1, line2, line3) # creates a nested array where each element is a horizontal braille letter 
+    condense_to_letters(line1, line2, line3)
   end
 
-  def breakdown #removes newlines and formats data into an array of inidividual chars/dots
-    file.map do |ele|
-      ele.chomp!
-      ele.chars
-    end
-  end
-  
-  def create_groups_by_3 # creates hash that associates lines that share the same index of a braille character
+  def create_groups_by_3
     groups = (1..@file.length).group_by do |i|
       i % 3
     end
@@ -56,11 +49,13 @@ class SanitizeBraille
       end
     end
   end
-  # def create_groups_by_3 # creates hash that associates lines that share the same index of a braille character
-  #   @groups = (1..breakdown.length).group_by do |i|
-  #     i % 3
-  #   end
-  # end
+
+  def breakdown
+    file.map do |ele|
+      ele.chomp!
+      ele.chars
+    end
+  end
   
   def condense_to_letters(line1, line2, line3)
     converter_format = []

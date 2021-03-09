@@ -4,21 +4,21 @@ class SanitizeEnglish
   attr_reader :data
 
   def initialize(file)
-    @data = file.gsub("\n", "").chars #removes pesky newlines
+    @data = file.gsub("\n", "").chars
   end
   
-  def to_braille #takes in data that has been chunked into specific sizes
-    chunk_data(40).flat_map do |chunk| #each chunk converted to braille
+  def to_braille
+    chunk_data(40).flat_map do |chunk|
       Converter.convert_to_braille(chunk)
     end
   end
 
-  def chunk_data(chunk_size) #tell the method the size of the chunks you need
+  def chunk_data(chunk_size)
     chunked = []
-    data.each_slice(chunk_size) do |chunk| #groups eles in set batch sizes
-      chunked << chunk.join #adds chunks to new array in str format
+    data.each_slice(chunk_size) do |chunk|
+      chunked << chunk.join
     end
-    chunked #returns array of strings, each ele is a chunk
+    chunked 
   end
 
   def char_count
