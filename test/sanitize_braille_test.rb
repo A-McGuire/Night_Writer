@@ -4,7 +4,7 @@ require './lib/sanitize_braille'
 
 class SanitizeBrailleTest < MiniTest::Test
 
- def test_it_exists_with_attributes
+  def test_it_exists_with_attributes
     sanitize_braille = SanitizeBraille.new([".."])
     
     assert_instance_of SanitizeBraille, sanitize_braille

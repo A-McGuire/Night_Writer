@@ -3,7 +3,7 @@ require './lib/converter'
 
 class ConverterTest < MiniTest::Test
 
- def test_it_exists_with_attributes
+  def test_it_exists_with_attributes
     converter = Converter.new
     assert_instance_of Converter, converter
   end
