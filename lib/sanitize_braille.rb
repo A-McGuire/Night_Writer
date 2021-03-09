@@ -21,18 +21,18 @@ class SanitizeBraille
     line3 = []
     create_groups_by_3 # creates hash that associates lines that 
                        # share the same index of a braille character
-    @groups.values[0].each do |value| #groups.values[0] == 1, 4 which represent line numbers
-      breakdown[value - 1].each_slice(2) do |letter| #value - 1 to account for index 0
+    @index_hash.values[0].each do |value| #index_hash.values[0] == 0, 3 which represent line numbers
+      breakdown[value].each_slice(2) do |letter| 
         line1 << letter.join #creating an array that contains all 'top' character sections, 
       end                    # with each char section as an element
     end
-    @groups.values[1].each do |value|
-      breakdown[value - 1].each_slice(2) do |letter|
+    @index_hash.values[1].each do |value|
+      breakdown[value].each_slice(2) do |letter|
         line2 << letter.join
       end
     end
-    @groups.values[2].each do |value|
-      breakdown[value - 1].each_slice(2) do |letter|
+    @index_hash.values[2].each do |value|
+      breakdown[value].each_slice(2) do |letter|
         line3 << letter.join
       end
     end
@@ -47,10 +47,20 @@ class SanitizeBraille
   end
   
   def create_groups_by_3 # creates hash that associates lines that share the same index of a braille character
-    @groups = (1..breakdown.length).group_by do |i|
+    groups = (1..@file.length).group_by do |i|
       i % 3
     end
+    @index_hash = groups.transform_values do |value|
+      value.map do |i|
+        i -= 1
+      end
+    end
   end
+  # def create_groups_by_3 # creates hash that associates lines that share the same index of a braille character
+  #   @groups = (1..breakdown.length).group_by do |i|
+  #     i % 3
+  #   end
+  # end
   
   def condense_to_letters(line1, line2, line3)
     converter_format = []
