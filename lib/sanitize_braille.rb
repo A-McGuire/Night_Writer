@@ -20,27 +20,27 @@ class SanitizeBraille
   end
   
   def to_converter_format
-    line1 = []
-    line2 = []
-    line3 = []
+    top_line = []
+    middle_line = []
+    bottom_line = []
     create_groups_by_3
     
     @index_hash.values[0].each do |value|
       breakdown[value].each_slice(2) do |letter| 
-        line1 << letter.join
+        top_line << letter.join
       end
     end
     @index_hash.values[1].each do |value|
       breakdown[value].each_slice(2) do |letter|
-        line2 << letter.join
+        middle_line << letter.join
       end
     end
     @index_hash.values[2].each do |value|
       breakdown[value].each_slice(2) do |letter|
-        line3 << letter.join
+        bottom_line << letter.join
       end
     end
-    condense_to_letters(line1, line2, line3)
+    condense_to_letters(top_line, middle_line, bottom_line)
   end
 
   def create_groups_by_3
@@ -61,10 +61,10 @@ class SanitizeBraille
     end
   end
   
-  def condense_to_letters(line1, line2, line3)
+  def condense_to_letters(top_line, middle_line, bottom_line)
     converter_format = []
-    line1.zip(line2, line3) do |l1, l2, l3|
-      converter_format << [l1, l2, l3]
+    top_line.zip(middle_line, bottom_line) do |top, middle, bottom|
+      converter_format << [top, middle, bottom]
     end
     converter_format
   end
