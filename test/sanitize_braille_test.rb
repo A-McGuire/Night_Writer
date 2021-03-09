@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/sanitize_braille'
 
 class SanitizeBrailleTest < MiniTest::Test
@@ -71,12 +72,30 @@ gggg hhhh iiii jjjj "
   def test_condense_to_letters
     file = ["0.\n", "..\n", "..\n", "0.\n", "..\n", ".."]
     sanitize_braille = SanitizeBraille.new(file)
-
+    
     sanitize_braille.create_groups_by_3
     line1 = ["0.", "0."]
     line2 = ["..", ".."]
     line3 = ["..", ".."]
     assert_equal [["0.", "..", ".."], ["0.", "..", ".."]],
     sanitize_braille.condense_to_letters(line1, line2, line3)
+  end
+  
+  def test_add_newline_every_80
+    file = mock
+    sanitize_braille = SanitizeBraille.new(file)
+    line = "aaaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj aaaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj "
+    expected = "aaaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj aaaa bbbb cccc dddd eeee ffff 
+gggg hhhh iiii jjjj "
+    assert_equal expected, sanitize_braille.newline_every_80(line)
+  end
+  
+  def test_add_newline_every_80_does_not_split_words
+    file = mock
+    sanitize_braille = SanitizeBraille.new(file)
+    line = "aaaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj aaaa bbbb cccc dddd eeee ffffgggg hhhh iiii jjjj "
+    expected = "aaaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj aaaa bbbb cccc dddd eeee 
+ffffgggg hhhh iiii jjjj "
+    assert_equal expected, sanitize_braille.newline_every_80(line)
   end
 end
