@@ -17,46 +17,24 @@ class SanitizeBraille
   
   def to_converter_format
     test = @file.map do |line|
-      line.scan(/.{2}/)
+      line.scan(/.{1,2}/)
     end
-    create_groups_by_3 # creates hash that associates lines that 
-    
-    line1 = test.values_at(0, 3, 6).compact!.flatten
-    line2 = test.values_at(1, 4, 7).compact!.flatten
-    line3 = test.values_at(2, 5, 8).compact!.flatten
-    # line1 = []
-    # line2 = []
-    # line3 = []
-
-    # share the same index of a braille character
-    # @groups.values[0].each do |value| #groups.values[0] == 1, 4 which represent line numbers
-    #   breakdown[value - 1].each_slice(2) do |letter| #value - 1 to account for index 0
-    #     line1 << letter.join #creating an array that contains all 'top' character sections, 
-    #   end                    # with each char section as an element
-    # end
-    # @groups.values[1].each do |value|
-    #   breakdown[value - 1].each_slice(2) do |letter|
-    #     line2 << letter.join
-    #   end
-    # end
-    # @groups.values[2].each do |value|
-    #   breakdown[value - 1].each_slice(2) do |letter|
-    #     line3 << letter.join
-    #   end
-    # end
+    create_groups_by_3 
+    require 'pry'; binding.pry
+    line1 = test.values_at(@index_hash[1].join(" ,").to_i).flatten
+    line2 = test.values_at(@index_hash[2].join(" ,").to_i).flatten
+    line3 = test.values_at(@index_hash[0].join(" ,").to_i).flatten
     condense_to_letters(line1, line2, line3) # creates a nested array where each element is a horizontal braille letter 
   end
-
-  # def breakdown #removes newlines and formats data into an array of inidividual chars/dots
-  #   file.map do |ele|
-  #     ele.chomp!
-  #     ele.chars
-  #   end
-  # end
   
   def create_groups_by_3 # creates hash that associates lines that share the same index of a braille character
-    @groups = (1..@file.length).group_by do |i|
+    groups = (1..@file.length).group_by do |i|
       i % 3
+    end
+    @index_hash = groups.transform_values do |value|
+      value.map do |i|
+        i -= 1
+      end
     end
   end
   
