@@ -9,10 +9,14 @@ class SanitizeBraille
   def to_english
     english = Converter.convert_to_english(to_converter_format)
     if english.size > 80 
-      english.scan(/.{1,80} /).join("\n")
+      newline_every_80(english)
     else 
       english
     end
+  end
+
+  def newline_every_80(string)
+    string.scan(/.{1,80} /).join("\n")
   end
   
   def to_converter_format
