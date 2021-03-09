@@ -55,9 +55,9 @@ class SanitizeBraille
   end
 
   def breakdown
-    file.map do |ele|
-      ele.chomp!
-      ele.chars
+    file.map do |element|
+      element.chomp!
+      element.chars
     end
   end
   
@@ -70,8 +70,8 @@ class SanitizeBraille
   end
   
   def char_count
-    sum = file.sum do |ele|
-      ele.chomp.length
+    sum = file.sum do |element|
+      element.chomp.length
     end
     sum / 6
   end

@@ -1,8 +1,8 @@
 class Converter
   def self.convert_to_braille(string)
-    line1 = ''
-    line2 = ''
-    line3 = ''
+    top_line = ''
+    middle_line = ''
+    bottom_line = ''
     hash = {
             "a" => ["0.", "..", ".."],
             "b" => ["0.", "0.", ".."],
@@ -33,11 +33,11 @@ class Converter
             " " => ["..", "..", ".."]
             }
     string.each_char do |char|
-      line1 += hash[char][0]
-      line2 += hash[char][1]
-      line3 += hash[char][2]
+      top_line += hash[char][0]
+      middle_line += hash[char][1]
+      bottom_line += hash[char][2]
     end
-    @converted = [line1, line2, line3]
+    @converted = [top_line, middle_line, bottom_line]
   end
 
   def self.convert_to_english(array)
