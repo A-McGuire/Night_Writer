@@ -1,5 +1,5 @@
-# Turing School Project Week: 5 - [Night_Writer](https://backend.turing.io/module1/projects/night_writer/)
-<a href="https://backend.turing.io/module1/projects/night_writer/" target="_blank">Night_Writer</a>
+### Turing School Project Week: 5 - [Night_Writer](https://backend.turing.io/module1/projects/night_writer/)
+
 
 Night_Writer is a command line interface app; it takes in a txt file in english (argument 1) and outputs a textfile in braille. The braille file name is specified in argument 2. 
 ```
