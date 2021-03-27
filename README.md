@@ -13,3 +13,8 @@ Created 'original_message.txt' containing 256 characters.
 ```
 
 In its current format night_writer/reader only accepts lowercase characters.
+Given more time I would prioritize these changes:
+  * Delete `output.rb`, and move it's responsibilities into the runner file similar to how the input files are currently read in.
+  * Heavily refactor `sanitize_braille.rb`. In it's current state it is not easily read.
+  * DRY up `converter` hash. 
+  * Rename `converter` to `translator`.
